@@ -10,4 +10,8 @@
 
 @interface FS_ViewController : UIViewController
 
+
+- (void)doFMDBTest;
+- (void)doSomething;
+
 @end
