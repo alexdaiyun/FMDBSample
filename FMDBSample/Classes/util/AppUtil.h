@@ -38,9 +38,11 @@
 + (NSString *) truncateURL:(NSString *)url;
 + (NSString *) trimWhiteSpaceFromString:(NSString *)source;
 + (BOOL) isEmpty:(id) thing;
++ (BOOL) stringIsEmpty:(NSString *) thing;
 + (NSArray *) randomSubsetFromArray:(NSArray *)original ofSize:(int)size;
 + (NSString *) SQLDatetimeFromDate:(NSDate *)date isDateTime:(BOOL)isDateTime;
 + (NSDate *) dateFromSQLDatetime:(NSString *)datetime;
++ (NSString *)stringWithDate:(NSDate *)date;
 + (NSArray *) filterRecords:(NSArray *)records dateField:(NSString *)dateField withDate:(NSDate *)date createdAfter:(BOOL)createdAfter;
 + (NSArray *)sortArray:(NSArray *)toSort;
 + (NSString *)relativeTime:(NSDate *)sinceDate;
@@ -52,6 +54,9 @@ void addRoundedRectToPath(CGContextRef context, CGRect rect, float ovalWidth, fl
 
 + (NSString *)getIPAddress;
 
+
+
+//获得指定目录下所有文件名
 + (NSArray *)getFileNamesWithDir:(NSString *)Dir;
 
 @end

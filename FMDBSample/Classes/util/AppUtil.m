@@ -83,7 +83,7 @@
         activityCount = 0;
     
     activityCount ++;
-    
+  
     [self refreshNetworkIndicator];
     
 }
@@ -163,6 +163,19 @@
         && [(NSArray *)thing count] == 0);
 }
 
++ (BOOL) stringIsEmpty:(NSString *)thing
+{
+    if(thing == nil)
+    {
+        return YES;
+    }
+    if([thing isKindOfClass:[NSNull class]])
+    {
+        return YES;
+    }
+    return [[thing stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] isEqualToString:@""];
+}
+
 + (NSArray *) randomSubsetFromArray:(NSArray *)original ofSize:(int)size {
     NSMutableSet *names = [NSMutableSet set];
     
@@ -237,6 +250,16 @@
     
     return date;
 }
+
+
++ (NSString *)stringWithDate:(NSDate *)date
+{
+    NSDateFormatter* formatter = [[NSDateFormatter alloc]init] ;
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString* datestr = [formatter stringFromDate:date];
+    return datestr;
+}
+
 
 + (NSArray *) filterRecords:(NSArray *)records dateField:(NSString *)dateField withDate:(NSDate *)date createdAfter:(BOOL)createdAfter {
     if( !records || !dateField )

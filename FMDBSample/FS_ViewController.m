@@ -10,6 +10,9 @@
 #import "AppUtil.h"
 #import "FMDatabase.h"
 #import "FMDatabaseQueue.h"
+#import "FMResultSet.h"
+#import "SQLiteFMDBHelper.h"
+
 
 
 @interface FS_ViewController ()
@@ -24,20 +27,138 @@
     SLLog(@"viewDidLoad");
     SLLog(@"APP_SCREEN_WIDTH --- %f",APP_SCREEN_WIDTH);
     SLog(@"PATH_OF_APP_HOME --- %@",PATH_OF_APP_HOME);
+    SLog(@"PATH_OF_APP_RESOURCE --- %@", PATH_OF_APP_RESOURCE);
     SLog(@"PATH_OF_TEMP --- %@",PATH_OF_TEMP);
     SLog(@"PATH_OF_DOCUMENT --- %@",PATH_OF_DOCUMENT);
     
     SLog(@"appFullName --- %@", [AppUtil appFullName]);
     
-    SLog(@"source -- %@ ", [[[NSBundle mainBundle] resourcePath]stringByAppendingPathComponent:AppDBName]);
+    SLog(@"resourcePath -- %@ ", [[[NSBundle mainBundle] resourcePath]stringByAppendingPathComponent:AppDBName]);
     
     SLog(@"documents -- %@ ", [AppUtil getAppDBPath]);
     
     SLog(@" %@ ", [PATH_OF_APP_HOME stringByAppendingPathComponent:@"Documents"]);
     
     
-    [self doFMDBTest];
+ 
     
+    
+    NSDate * nowDate = [NSDate date];
+    
+    SLog(@"now: %@", [AppUtil SQLDatetimeFromDate:nowDate isDateTime:YES]);
+    SLog(@"now: %@", [AppUtil stringWithDate:nowDate]);
+    
+    //[self test];
+    
+    //    NSUInteger _i = 1;
+    //    _i ++;
+    //    SLog(@"_i %d",_i);
+    //
+    //    NSUInteger * j =1;
+    //
+    //    j ++;
+    //
+    //    SLog(@"j %lx",j);
+    
+    [self testSQLiteFMDBHelper];
+}
+
+#pragma mark - test SQLiteFMDBHelper
+
+- (void) testSQLiteFMDBHelper
+{
+    SLog(@" -----1----- ");
+    SQLiteFMDBHelper *_helper = [SQLiteFMDBHelper sharedAppUtil];
+    [_helper setDBName:AppDBName WithFilePath:@""];
+    
+    
+    /*
+    NSArray *tables = [_helper getTableNames];
+    
+    for (NSString* tableName in tables) {
+        SLog(@"-- %@ ",tableName);
+    }
+    */
+    
+    SLog(@" -----2----- ");
+    
+    NSString *cmdSQL = @"select distinct tbl_name from sqlite_master";
+    
+    [_helper inDataBase:^(FMDatabase *fmdb){
+        
+        //[fmdb closeOpenResultSets];
+        
+        FMResultSet *_resultSet = [fmdb executeQuery:cmdSQL];
+        
+        
+        
+        while ([_resultSet next]) {
+            SLog(@"  %@ ",   [_resultSet  stringForColumn:@"tbl_name"]);
+        }
+        
+        [_resultSet close];
+    }];
+ 
+//    FMResultSet *_resultSet_A = [_helper ExecuteQuery:cmdSQL];
+//    
+//    while ([_resultSet_A next]) {
+//        SLog(@" --- %@", [_resultSet_A stringForColumn:@"tbl_name"]);
+//    }
+//    
+//    [_resultSet_A close];
+    
+   
+    cmdSQL = @"select UserID,UserName,BirthdayYear,BirthdayMonth,Gender from TBL_User ";
+     
+    [_helper inDataBase:^(FMDatabase *fmdb){
+        
+        //[fmdb closeOpenResultSets];
+        
+        FMResultSet *_resultSet = [fmdb executeQuery:cmdSQL];
+        
+        
+        
+        while ([_resultSet next]) {
+            SLog(@" %d  %@ ", [_resultSet intForColumn:@"UserID"], [_resultSet  stringForColumn:@"UserName"]);
+        }
+        
+        [_resultSet close];
+    }];
+     
+  
+    
+    
+}
+
+#pragma mark - FMDB 原生方法调用
+
+
+//直接调用FMDB组件
+- (void)doFMDBTest
+{
+    [self queryData];
+    // [self insertData];
+    // [self queryData];
+    //[self multithreadInsertData];
+    // [self queryData];
+    
+}
+
+
+- (void) test
+{
+    NSString * _db = [PATH_OF_DOCUMENT stringByAppendingPathComponent:@"123.sqlite"];
+    //open db
+    FMDatabase *fmdb = [ FMDatabase databaseWithPath: _db];
+    if (![fmdb open])
+    {
+        SLLog(@"Error %d: %@", [fmdb lastErrorCode], [fmdb lastErrorMessage]);
+    }
+    else
+    {
+        SLLog(@"open db: %@",_db);
+    }
+    [fmdb close];
     
 }
 
@@ -69,7 +190,7 @@
             SLLog(@"succeed create Table ");
         }
         
-        
+        [fmdb close];
     }
     
     
@@ -232,16 +353,7 @@
     
 }
 
-//直接调用FMDB组件
-- (void)doFMDBTest
-{
-    [self queryData];
-   // [self insertData];
-   // [self queryData];
-    //[self multithreadInsertData];
-   // [self queryData];
-    
-}
+
 
 #pragma mark - View lifecyle
 

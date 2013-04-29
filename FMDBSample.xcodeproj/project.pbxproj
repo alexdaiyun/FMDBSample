@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CC456A6A17298CA100F3F7DC /* SQLiteFMDBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CC456A6917298CA100F3F7DC /* SQLiteFMDBHelper.m */; };
 		CCF43C00171554920078FFB7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF43BFF171554920078FFB7 /* UIKit.framework */; };
 		CCF43C02171554920078FFB7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF43C01171554920078FFB7 /* Foundation.framework */; };
 		CCF43C04171554920078FFB7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF43C03171554920078FFB7 /* CoreGraphics.framework */; };
@@ -45,6 +46,8 @@
 
 /* Begin PBXFileReference section */
 		CC311059171A89D10025AF07 /* SynthesizeSingleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
+		CC456A6817298CA100F3F7DC /* SQLiteFMDBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQLiteFMDBHelper.h; sourceTree = "<group>"; };
+		CC456A6917298CA100F3F7DC /* SQLiteFMDBHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQLiteFMDBHelper.m; sourceTree = "<group>"; };
 		CCF43BFC171554920078FFB7 /* FMDBSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FMDBSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCF43BFF171554920078FFB7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CCF43C01171554920078FFB7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -222,6 +225,8 @@
 				CCFA0715171812940026CB61 /* AppUtil.h */,
 				CCFA0716171812940026CB61 /* AppUtil.m */,
 				CC311059171A89D10025AF07 /* SynthesizeSingleton.h */,
+				CC456A6817298CA100F3F7DC /* SQLiteFMDBHelper.h */,
+				CC456A6917298CA100F3F7DC /* SQLiteFMDBHelper.m */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -386,6 +391,7 @@
 				CCF43C5217155CD20078FFB7 /* FMDatabaseQueue.m in Sources */,
 				CCF43C5317155CD20078FFB7 /* FMResultSet.m in Sources */,
 				CCFA0717171812940026CB61 /* AppUtil.m in Sources */,
+				CC456A6A17298CA100F3F7DC /* SQLiteFMDBHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
